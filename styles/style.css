@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap");
 
 :root {
   --primaryTextColor: #232e35; /* Untuk title atau judul */
@@ -11,8 +11,10 @@
   --secondaryBackgroundColor: #fbfbfb;
   --thirdBackgroundColor: #f5f3fe;
 
-  --primaryIconColor: #7e74f1;
+  --primaryIconColor: #9b5de0;
   --primaryIconColorHover: #5d51e8;
+  --primaryIconColorActive: #a297f9;
+  --accentGlow: rgba(155, 93, 224, 0.3);
 
   --sectionPadding: 6rem 0;
 
@@ -27,7 +29,7 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 h1,
@@ -77,11 +79,12 @@ a {
   background: white;
   border: 1.5px solid var(--borderColor);
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .btn:hover {
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  box-shadow: rgba(120, 120, 120, 0.99) 0px 3px 5px;
+  transform: translateY(-2px);
 }
 
 /* Titles */
@@ -152,9 +155,68 @@ nav ul li {
 }
 
 nav ul li a {
+  position: relative;
   color: var(--primaryTextColor);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
 }
 
+/* bikin garis bawah custom */
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* posisinya di bawah teks */
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--primaryIconColor);
+  transition: width 0.3s ease-in-out;
+}
+
+/* pas hover */
+nav ul li a:hover {
+  color: var(--primaryIconColor);
+}
+
+/* animasi underline-nya */
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* typing text */
+.container {
+  width: 400px;
+  overflow: hidden;
+}
+.container .text {
+  position: relative;
+  color: var(--primaryIconColor);
+  font-size: 30px;
+  font-weight: 600;
+}
+.container .text.first-text {
+  color: var(--primaryTextColor);
+}
+.sec-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-left: 2px solid rgb(129, 18, 129);
+  animation: animate 4s steps(12) infinite;
+}
+@keyframes animate {
+  40%,
+  60% {
+    left: 100%;
+  }
+  100% {
+    left: 0%;
+  }
+}
 /* Burger - Save for later on video */
 .burger div {
   width: 25px;
@@ -220,36 +282,46 @@ nav ul li a {
   text-align: center;
   background: var(--primaryBackgroundColor);
   border-radius: var(--itemBorderRadius);
+  transition: all 0.5s ease-in-out;
 }
 
-.service h4 {
-  margin: 1.5rem 0;
-  font-weight: 500;
-  font-size: 1.05rem;
+.service:hover {
+  box-shadow: rgba(144, 143, 144, 0.99) 0px 3px 5px;
+  background: var(--primaryIconColorActive);
+  transform: translateY(-4px);
+  cursor: pointer;
 }
 
+/* text berubah warna */
+.service:hover h4,
+.service:hover p {
+  color: white;
+}
+
+/* icon */
 .service-icon {
   background: var(--thirdBackgroundColor);
   width: fit-content;
   margin: 0 auto;
   padding: 1rem 1.3rem;
   border-radius: 0.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-icon svg {
   fill: var(--primaryIconColor);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.service-icon {
-  background: var(--thirdBackgroundColor);
-  width: fit-content;
-  margin: 0 auto;
-  padding: 1rem 1.3rem;
-  border-radius: 0.5rem;
+.service:hover .service-icon {
+  background: white;
+  transform: translateY(-6px) rotate(10deg);
+  box-shadow: 0 0 12px var(--accentGlow);
 }
 
-.service-icon svg {
-  fill: var(--primaryIconColor);
+.service:hover .service-icon svg {
+  fill: var(--primaryIconColorActive);
+  transform: scale(1.15);
 }
 
 /* Portfolios */
@@ -258,23 +330,55 @@ nav ul li a {
 }
 
 .portfolio {
+  position: relative;
   border-radius: var(--itemBorderRadius);
-  overflow: hidden; /* supaya gambar yang diatas itu dia ngikut border radiusnya, karena yang dikasih border radius disini adalah div portfolio ini */
+  overflow: hidden;
   border: 1px solid var(--borderColor);
+  transition: all 0.5s ease;
+  cursor: pointer;
 }
 
 .portfolio-cover {
   height: 250px;
+  overflow: hidden;
+  position: relative;
 }
 
 .portfolio img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+/*Overlay efek */
+.portfolio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.1) 70%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
 }
 
 .portfolio-info {
   padding: 2rem 1.5rem;
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  color: white;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
 }
 
 .portfolio-title {
@@ -287,34 +391,68 @@ nav ul li a {
 .portfolio h4 {
   font-weight: 500;
   font-size: 1.05rem;
-}
-
-.portfolio-title a svg:hover {
-  fill: var(--primaryIconColor);
+  color: white;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
 }
 
 .portfolio-title a svg {
-  transition: 0.2s ease-in-out;
+  fill: white;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
 }
 
 .portfolio-tags {
   display: flex;
-  gap: 1rem;
-  margin: 1rem 0;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
 }
 
 .portfolio-tags div {
-  font-size: 0.9rem;
-  border: 1px solid var(--borderColor);
-  padding: 0.4rem 1rem;
-  color: var(--secondaryTextColor);
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.3rem 0.8rem;
+  color: white;
+  border-radius: 5px;
 }
 
-.portfolio-tags div {
-  font-size: 0.9rem;
-  border: 1px solid var(--borderColor);
-  padding: 0.4rem 1rem;
-  color: var(--secondaryTextColor);
+/* Efek  hover */
+.portfolio:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.7);
+}
+
+.portfolio:hover::before {
+  opacity: 1;
+}
+
+.portfolio:hover .portfolio-info {
+  bottom: -45px;
+}
+
+.portfolio:hover h4,
+.portfolio:hover .portfolio-title a svg,
+.portfolio:hover .portfolio-tags {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+.portfolio:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(155, 93, 224, 0.25);
+  h4 {
+    color: white;
+  }
+  p {
+    color: white;
+  }
+  transition: all 0.3s ease-in-out;
 }
 
 /* Skills and Education */
@@ -377,6 +515,15 @@ nav ul li a {
   padding: 0 1rem;
 }
 
+.skills li {
+  transition-duration: 0.5s;
+}
+.skills li:hover {
+  color: #9b5de0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
 /* Contact Section */
 #contact {
   padding: var(--sectionPadding);
@@ -421,13 +568,14 @@ nav ul li a {
   background-color: var(--primaryIconColor);
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 50px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
 
 .btn-submit:hover {
-  background-color: var(--primaryIconColorHover);
+  background-color: var(--primaryIconColorActive);
+  box-shadow: 0 0 12px var(--accentGlow);
 }
 
 /* Contact Section - Right Side */
@@ -469,12 +617,10 @@ footer {
 
 .footer-icons a {
   margin: 0 0.5rem;
+  color: var(--secondaryTextColor);
+  font-size: 1.2rem;
+  transition: color 0.3s ease-in-out;
 }
-
-.footer-icons svg {
-  fill: #3e3f40;
-}
-
-.footer-icons a:hover svg {
-  fill: #000;
+.footer-icons a:hover {
+  color: var(--primaryIconColor);
 }

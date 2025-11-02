@@ -18,3 +18,19 @@ window.onbeforeunload = () => {
     form.reset();
   }
 };
+
+// typing text animation
+const text = document.querySelector(".sec-text");
+const textLoad = () => {
+  setTimeout(() => {
+    text.textContent = "Junior Developer";
+  }, 0);
+  setTimeout(() => {
+    text.textContent = "IT Student";
+  }, 4000);
+  setTimeout(() => {
+    text.textContent = "IT Enthusiast";
+  }, 8000);
+  }
+  textLoad();
+setInterval(textLoad, 12000);
