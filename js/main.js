@@ -23,7 +23,7 @@ window.onbeforeunload = () => {
 const text = document.querySelector(".sec-text");
 const textLoad = () => {
   setTimeout(() => {
-    text.textContent = "Junior Developer";
+    text.textContent = "Night coder";
   }, 0);
   setTimeout(() => {
     text.textContent = "IT Student";
