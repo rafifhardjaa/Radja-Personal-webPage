@@ -18,6 +18,29 @@ window.onbeforeunload = () => {
     form.reset();
   }
 };
+// scroll reveal animation
+document.addEventListener("DOMContentLoaded", function () {
+  ScrollReveal().reveal('#hero, #services, #portfolios, #skills, #contact', {
+    origin: 'bottom',
+    distance: '80px',
+    duration: 1000,
+    interval: 100,
+    delay: 200,
+    reset: true
+  });
+});
+
+// Loader skaleton 
+window.addEventListener("load", function () {
+  const loader = document.getElementById("loader");
+  const content = document.getElementById("content");
+
+  setTimeout(() => {
+    loader.style.display = "none";
+    content.style.display = "block";
+  }, 800); // delay 800ms sebelum menghilangkan loader
+});
+
 
 // typing text animation
 const text = document.querySelector(".sec-text");
